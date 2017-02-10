@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Task;
 use Illuminate\Http\Request;
+use Crypt;
 
 use App\Http\Requests;
 
@@ -57,7 +58,7 @@ class TaskController extends Controller
      */
     public function show($id)
     {
-        $task = Task::find($id);
+        $task = Task::find(Crypt::decrypt($id));
         return view('task.show',compact('task'));
     }
 
@@ -69,7 +70,7 @@ class TaskController extends Controller
      */
     public function edit($id)
     {
-        $task = Task::find($id);
+        $task = Task::find(Crypt::decrypt($id));
         return view('task.edit', compact('task'));
     }
 
@@ -98,7 +99,7 @@ class TaskController extends Controller
      */
     public function destroy($id)
     {
-        Task::find($id)->delete();
+        Task::find(Crypt::decrypt($id))->delete();
         return redirect()->route('tasks.index')->with('success','Task removed successfully');
     }
 }

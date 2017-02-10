@@ -33,9 +33,9 @@
                             <td>{{ $task->name }}</td>
                             <td>{{ $task->description }}</td>
                             <td>
-                                <a class="btn btn-success" href="{{ route('tasks.show',$task->id) }}">Show</a>
-                                <a class="btn btn-primary" href="{{ route('tasks.edit',$task->id) }}">Edit</a>
-                                {{ Form::open(['method' => 'DELETE','route' => ['tasks.destroy', $task->id],'style'=>'display:inline']) }}
+                                <a class="btn btn-success" href="{{ route('tasks.show', Crypt::encrypt($task->id)) }}">Show</a>
+                                <a class="btn btn-primary" href="{{ route('tasks.edit', Crypt::encrypt($task->id)) }}">Edit</a>
+                                {{ Form::open(['method' => 'DELETE','route' => ['tasks.destroy', Crypt::encrypt($task->id)],'style'=>'display:inline']) }}
                                 {{ Form::submit('Delete', ['class' => 'btn btn-danger']) }}
                                 {{ Form::close() }}
                             </td>
